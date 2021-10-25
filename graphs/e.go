@@ -10,21 +10,23 @@ import (
  * for undirected graphs, there should be 2 edges with src/ dst flipped
  */
 type Edge struct {
-	Src   *Node
-	Dst   *Node
-	Label u.Any
-	Color u.Any
+	Src    *Node
+	Dst    *Node
+	Label  u.Any
+	Color  u.Any
+	Weight float64
 }
 
-func NewEdge(src, dst *Node, label, color u.Any) *Edge {
+func NewEdge(src, dst *Node, label, color u.Any, w float64) *Edge {
 	return &Edge{
-		Src:   src,
-		Dst:   dst,
-		Label: label,
-		Color: color,
+		Src:    src,
+		Dst:    dst,
+		Label:  label,
+		Color:  color,
+		Weight: w,
 	}
 }
 
 func (e *Edge) ValueString() string {
-	return fmt.Sprintf("%v--%v/%v-->%v", e.Src, e.Label, e.Color, e.Dst)
+	return fmt.Sprintf("%v--%v/%v(%.2f)-->%v", e.Src, e.Label, e.Color, e.Weight, e.Dst)
 }

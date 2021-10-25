@@ -25,6 +25,7 @@ func (t *Tuple) String() string {
 
 type Comparator func(u1, u2 Any) bool
 type ComparatorFn func(a, b Any) int
+type BinaryInt func(a, b Any) int
 
 func CompareInt(a, b Any) int {
 	var (
