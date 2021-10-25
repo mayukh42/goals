@@ -6,99 +6,20 @@ import (
 	u "github.com/mayukh42/goals/utils"
 )
 
-type VGraph struct {
-	Src      *Node
-	Vertices map[u.Any]*Node
-}
-
-func NewVGraph(src u.Any, alm map[u.Any]u.List) *VGraph {
-	if len(alm) == 0 {
-		return nil
-	}
-	g := &VGraph{
-		Vertices: make(map[u.Any]*Node),
-	}
-	for k := range alm {
-		n := NewNode(k)
-		g.Vertices[k] = n
-	}
-
-	for k, v := range alm {
-		nk := g.Vertices[k]
-		for _, n := range v {
-			nv := g.Vertices[n]
-			nk.AList = append(nk.AList, nv)
-		}
-		if k == src {
-			g.Src = nk
-		}
-	}
-	return g
-}
-
-type EGraph struct {
-	Src   *Node
-	Edges map[u.Any]*Edge
-}
-
-func NewEGraph(source u.Any, es map[u.Any]u.List) *EGraph {
-	edges := make(map[u.Any]*Edge)
-
-	// create node refs
-	vs := make(map[u.Any]*Node)
-
-	for label, ends := range es {
-		if len(ends) != 2 {
-			continue
-		}
-		var (
-			src, dst *Node
-			ok       bool
-		)
-		if _, ok = vs[ends[0]]; ok {
-			src = vs[ends[0]]
-		} else {
-			src = NewNode(ends[0])
-		}
-
-		if _, ok = vs[ends[1]]; ok {
-			dst = vs[ends[1]]
-		} else {
-			dst = NewNode(ends[1])
-		}
-		// label set key is a function of the 2 endpoints
-		key := fmt.Sprintf("%v.%v", src.Value, dst.Value)
-		edges[key] = &Edge{
-			Src:   src,
-			Dst:   dst,
-			Label: label,
-		}
-	}
-
-	var src *Node
-	if _, ok := vs[source]; ok {
-		src = vs[source]
-	}
-	return &EGraph{
-		Src:   src,
-		Edges: edges,
-	}
-}
-
 type Graph struct {
 	Src      *Node
-	Vertices map[u.Any]*Node
-	Edges    map[u.Any]*Edge
+	Vertices map[string]*Node
+	Edges    map[string]*Edge
 }
 
 /** NewGraph()
  * create edges set from label:[src, dst]
  */
 func NewGraph(source u.Any, es map[u.Any]u.List) *Graph {
-	edges := make(map[u.Any]*Edge)
+	edges := make(map[string]*Edge)
 
 	// create node refs
-	vs := make(map[u.Any]*Node)
+	vs := make(map[string]*Node)
 
 	for label, ends := range es {
 		if len(ends) != 2 {
@@ -108,14 +29,16 @@ func NewGraph(source u.Any, es map[u.Any]u.List) *Graph {
 			src, dst *Node
 			ok       bool
 		)
-		if _, ok = vs[ends[0]]; ok {
-			src = vs[ends[0]]
+		e0 := fmt.Sprintf("%v", ends[0])
+		e1 := fmt.Sprintf("%v", ends[1])
+		if _, ok = vs[e0]; ok {
+			src = vs[e0]
 		} else {
 			src = NewNode(ends[0])
 		}
 
-		if _, ok = vs[ends[1]]; ok {
-			dst = vs[ends[1]]
+		if _, ok = vs[e1]; ok {
+			dst = vs[e1]
 		} else {
 			dst = NewNode(ends[1])
 		}
@@ -129,9 +52,11 @@ func NewGraph(source u.Any, es map[u.Any]u.List) *Graph {
 	}
 
 	var src *Node
-	if _, ok := vs[source]; ok {
-		src = vs[source]
+	s := fmt.Sprintf("%v", source)
+	if _, ok := vs[s]; ok {
+		src = vs[s]
 	}
+
 	return &Graph{
 		Src:      src,
 		Edges:    edges,
@@ -139,8 +64,65 @@ func NewGraph(source u.Any, es map[u.Any]u.List) *Graph {
 	}
 }
 
-func (g *Graph) SetSource(s u.Any) {
+func (g *Graph) SetSource(src u.Any) {
+	s := fmt.Sprintf("%v", src)
 	if vn, ok := g.Vertices[s]; ok {
 		g.Src = vn
 	}
+}
+
+/** get adjacency list from sets G(V, E)
+ * TODO: sort by weight
+ */
+func (g *Graph) AdjacencyList() map[u.Any]u.List {
+	al := make(map[u.Any]u.List)
+	for _, v := range g.Edges {
+		// k = src.dst, v.Src, v.Dst etc
+		var (
+			ns u.List
+			ok bool
+		)
+		if ns, ok = al[v.Src]; ok {
+			ns = append(ns, v.Dst)
+		} else {
+			ns = u.List{v.Dst}
+		}
+		al[v.Src] = ns
+		/** no need to do for dst separately for this edge, since
+		 * it will be another edge if undirected
+		 */
+	}
+	return al
+}
+
+/** get adjacency list from sets G(V, E)
+ * TODO: sort by weight
+ */
+func (g *Graph) AdjacencyListSingleNode(nv u.Any) map[u.Any]u.List {
+	al := make(map[u.Any]u.List)
+	for _, v := range g.Edges {
+		// k = src.dst, v.Src, v.Dst etc
+		nvs := fmt.Sprintf("%v", nv)
+		if v.Src.Id != nvs {
+			continue
+		}
+		var (
+			ns u.List
+			ok bool
+		)
+		if ns, ok = al[v.Src]; ok {
+			ns = append(ns, v.Dst)
+		} else {
+			ns = u.List{v.Dst}
+		}
+		al[v.Src] = ns
+		/** no need to do for dst separately for this edge, since
+		 * it will be another edge if undirected
+		 */
+	}
+	return al
+}
+
+func (g *Graph) NearestNeighbor(v u.Any) *Node {
+	return nil
 }

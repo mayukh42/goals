@@ -10,6 +10,7 @@ import (
  * for undirected graphs, there should be 2 edges with src/ dst flipped
  */
 type Edge struct {
+	Id     string
 	Src    *Node
 	Dst    *Node
 	Label  u.Any
@@ -19,6 +20,7 @@ type Edge struct {
 
 func NewEdge(src, dst *Node, label, color u.Any, w float64) *Edge {
 	return &Edge{
+		Id:     fmt.Sprintf("%v.%v", src.Value, dst.Value),
 		Src:    src,
 		Dst:    dst,
 		Label:  label,

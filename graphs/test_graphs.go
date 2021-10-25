@@ -4,7 +4,7 @@ import (
 	u "github.com/mayukh42/goals/utils"
 )
 
-func CreateGraphAL() *VGraph {
+func CreateGraphAL() *Graph {
 	vs := map[u.Any]u.List{
 		6: {4},
 		4: {3, 5, 6},
@@ -14,5 +14,5 @@ func CreateGraphAL() *VGraph {
 		1: {2, 5},
 	}
 
-	return NewVGraph(6, vs)
+	return NewGraph(6, vs)
 }

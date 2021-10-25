@@ -8,7 +8,7 @@ import (
 )
 
 type Node struct {
-	Id    int
+	Id    string
 	Value u.Any
 	Color u.Any
 	AList []*Node
@@ -16,6 +16,7 @@ type Node struct {
 
 func NewNode(v u.Any) *Node {
 	return &Node{
+		Id:    fmt.Sprintf("%v", v),
 		Value: v,
 		Color: nil,
 		AList: make([]*Node, 0),
@@ -33,6 +34,7 @@ func NewNodeWithNeighbors(v u.Any, ns u.List) *Node {
 	}
 
 	return &Node{
+		Id:    fmt.Sprintf("%v", v),
 		Value: v,
 		Color: nil,
 		AList: al,
