@@ -2,6 +2,7 @@ package graphs
 
 import (
 	"fmt"
+	"math"
 
 	u "github.com/mayukh42/goals/utils"
 )
@@ -124,5 +125,21 @@ func (g *Graph) AdjacencyListSingleNode(nv u.Any) map[u.Any]u.List {
 }
 
 func (g *Graph) NearestNeighbor(v u.Any) *Node {
-	return nil
+	var (
+		nn   *Node
+		dist float64
+	)
+	dist = math.MaxFloat64
+	for _, e := range g.Edges {
+		vs := fmt.Sprintf("%v", v)
+		if e.Src.ValueString() != vs {
+			continue
+		}
+		// e0 matches v, so e1 is a neighbor
+		if e.Weight < dist {
+			nn = e.Dst
+			dist = e.Weight
+		}
+	}
+	return nn
 }

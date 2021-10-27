@@ -42,7 +42,7 @@ func NewNodeWithNeighbors(v u.Any, ns u.List) *Node {
 }
 
 func (n *Node) ValueString() string {
-	return fmt.Sprintf("%v", n.Value)
+	return n.Id
 }
 
 func (n *Node) NodeString() string {
