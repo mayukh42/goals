@@ -30,8 +30,8 @@ func NewGraph(source u.Any, es map[u.Any]u.List) *Graph {
 			src, dst *Node
 			ok       bool
 		)
-		e0 := fmt.Sprintf("%v", ends[0])
-		e1 := fmt.Sprintf("%v", ends[1])
+		e0 := u.AnyToString(ends[0])
+		e1 := u.AnyToString(ends[1])
 		if _, ok = vs[e0]; ok {
 			src = vs[e0]
 		} else {
@@ -53,7 +53,7 @@ func NewGraph(source u.Any, es map[u.Any]u.List) *Graph {
 	}
 
 	var src *Node
-	s := fmt.Sprintf("%v", source)
+	s := u.AnyToString(source)
 	if _, ok := vs[s]; ok {
 		src = vs[s]
 	}
@@ -66,7 +66,7 @@ func NewGraph(source u.Any, es map[u.Any]u.List) *Graph {
 }
 
 func (g *Graph) SetSource(src u.Any) {
-	s := fmt.Sprintf("%v", src)
+	s := u.AnyToString(src)
 	if vn, ok := g.Vertices[s]; ok {
 		g.Src = vn
 	}
@@ -96,6 +96,14 @@ func (g *Graph) AdjacencyList() map[u.Any]u.List {
 	return al
 }
 
+func (g *Graph) GetNodeById(v u.Any) *Node {
+	k := u.AnyToString(v)
+	if n, ok := g.Vertices[k]; ok {
+		return n
+	}
+	return nil
+}
+
 /** get adjacency list from sets G(V, E)
  * TODO: sort by weight
  */
@@ -103,7 +111,7 @@ func (g *Graph) AdjacencyListSingleNode(nv u.Any) map[u.Any]u.List {
 	al := make(map[u.Any]u.List)
 	for _, v := range g.Edges {
 		// k = src.dst, v.Src, v.Dst etc
-		nvs := fmt.Sprintf("%v", nv)
+		nvs := u.AnyToString(nv)
 		if v.Src.Id != nvs {
 			continue
 		}
@@ -124,14 +132,14 @@ func (g *Graph) AdjacencyListSingleNode(nv u.Any) map[u.Any]u.List {
 	return al
 }
 
-func (g *Graph) NearestNeighbor(v u.Any) *Node {
+func (g *Graph) NearestNeighbor(v u.Any) (*Node, float64) {
 	var (
 		nn   *Node
 		dist float64
 	)
 	dist = math.MaxFloat64
+	vs := u.AnyToString(v)
 	for _, e := range g.Edges {
-		vs := fmt.Sprintf("%v", v)
 		if e.Src.ValueString() != vs {
 			continue
 		}
@@ -141,5 +149,5 @@ func (g *Graph) NearestNeighbor(v u.Any) *Node {
 			dist = e.Weight
 		}
 	}
-	return nn
+	return nn, dist
 }

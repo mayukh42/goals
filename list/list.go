@@ -3,6 +3,7 @@ package list
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	u "github.com/mayukh42/goals/utils"
 )
@@ -102,6 +103,7 @@ func (n *Node) String() string {
 
 type DNode struct {
 	Value u.Any
+	Time  time.Time
 	Prev  *DNode
 	Next  *DNode
 }
@@ -109,6 +111,7 @@ type DNode struct {
 func NewDNode(v interface{}) *DNode {
 	return &DNode{
 		Value: v,
+		Time:  time.Now().UTC(),
 		Next:  nil,
 		Prev:  nil,
 	}
@@ -150,6 +153,13 @@ func (dn *DNode) Sanitize() *DNode {
 
 func (dn *DNode) ValueStr() string {
 	return fmt.Sprintf("%v", dn.Value)
+}
+
+func (dn *DNode) Equals(on *DNode) bool {
+	if on != nil {
+		return dn.ValueStr() == on.ValueStr()
+	}
+	return false
 }
 
 func (dl *DList) Suffix(n *DNode) *DList {
@@ -210,6 +220,50 @@ func (dl *DList) Prefix(n *DNode) *DList {
 
 	dl.Size++
 	return dl
+}
+
+func (dl *DList) RemoveHead() *DNode {
+	if dl.Head != nil {
+		e := dl.Head
+		dl.Head = dl.Head.Next
+		dl.Head.Prev = nil
+		dl.Size--
+		return e
+	}
+	return nil
+}
+
+func (dl *DList) RemoveTail() *DNode {
+	if dl.Tail != nil {
+		e := dl.Tail
+		dl.Tail = dl.Tail.Prev
+		dl.Tail.Next = nil
+		dl.Size--
+		return e
+	}
+	return nil
+}
+
+func (dl *DList) RemoveNode(n *DNode) *DNode {
+	if dl.Head.Equals(n) {
+		return dl.RemoveHead()
+	}
+
+	if dl.Tail.Equals(n) {
+		return dl.RemoveTail()
+	}
+
+	// somewhere in the middle
+	n.Prev.Next = n.Next
+	n.Next.Prev = n.Prev
+	dl.Size--
+
+	n.Sanitize()
+	return n
+}
+
+func (dl *DList) GetSize() int {
+	return int(dl.Size)
 }
 
 // Queue, FIFO

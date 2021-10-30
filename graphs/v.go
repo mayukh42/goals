@@ -49,6 +49,10 @@ func (n *Node) NodeString() string {
 	return fmt.Sprintf("%v(%v)", n.Value, n.Color)
 }
 
+func (n *Node) Equals(o *Node) bool {
+	return n.Id == o.Id
+}
+
 func (n *Node) String() string {
 	var sb strings.Builder
 	sb.WriteString(n.NodeString())

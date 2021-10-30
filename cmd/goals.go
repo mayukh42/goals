@@ -7,6 +7,7 @@ import (
 	c "github.com/mayukh42/goals/collections"
 	"github.com/mayukh42/goals/dp"
 	l "github.com/mayukh42/goals/list"
+	o "github.com/mayukh42/goals/osal"
 	t "github.com/mayukh42/goals/tree"
 )
 
@@ -17,7 +18,8 @@ func main() {
 	// TestTrees()
 	// TestDP()
 	// TestCollections()
-	TestAlgo()
+	// TestAlgo()
+	TestOSAlgorithms()
 	// TestClassics()
 }
 
@@ -66,4 +68,8 @@ func TestAlgo() {
 
 func TestClassics() {
 	a.TestBinarySearch()
+}
+
+func TestOSAlgorithms() {
+	o.LRUTest()
 }

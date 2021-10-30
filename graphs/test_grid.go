@@ -1,3 +1,3 @@
 package graphs
 
-func TestWalk()
+func TestWalk() {}

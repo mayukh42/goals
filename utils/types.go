@@ -49,3 +49,7 @@ func CompareInt(a, b Any) int {
 
 	return 0
 }
+
+func AnyToString(a Any) string {
+	return fmt.Sprintf("%v", a)
+}
