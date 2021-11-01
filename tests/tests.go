@@ -6,6 +6,7 @@ import (
 	a "github.com/mayukh42/goals/algo"
 	c "github.com/mayukh42/goals/collections"
 	"github.com/mayukh42/goals/dp"
+	g "github.com/mayukh42/goals/graphs"
 	l "github.com/mayukh42/goals/list"
 	o "github.com/mayukh42/goals/osal"
 	t "github.com/mayukh42/goals/tree"
@@ -19,8 +20,9 @@ func Tests() {
 	// TestDP()
 	// TestCollections()
 	// TestAlgo()
-	TestOSAlgorithms()
+	// TestOSAlgorithms()
 	// TestClassics()
+	TestGraphs()
 }
 
 // tests - the old school way
@@ -75,4 +77,9 @@ func TestOSAlgorithms() {
 	// o.TestBitStr()
 	// o.TestByteStream()
 	o.TestLRURefMatrixSet()
+}
+
+func TestGraphs() {
+	// g.TestUFDS1()
+	g.TestUFDS2()
 }
