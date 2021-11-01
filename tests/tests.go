@@ -81,5 +81,9 @@ func TestOSAlgorithms() {
 
 func TestGraphs() {
 	// g.TestUFDS1()
-	g.TestUFDS2()
+	// g.TestUFDS2()
+	// g.TestUFDS3()
+	// g.TestUFDSRef1()
+	// g.TestUFDSRef2()
+	g.MegaUFDSTest()
 }

@@ -117,13 +117,28 @@ func (uf *UFDS) Union(u1, u2 *UFNode) *UFNode {
 }
 
 /** Find(e): Return the set containing the element e
+ * lazy path compression
  */
 func (uf *UFDS) Find(e *UFNode) *UFNode {
 	root := e
 	for !root.IsSingleton() {
 		root = root.LinkPtr
 	}
+	e.RootPtr = root
 	return root
+}
+
+/** proactive path compression
+ */
+func (uf *UFDS) PathCompression() {
+	if uf.Size == 0 {
+		// empty singleton array
+		return
+	}
+	// if size >= 1, root is already set in MakeSet()
+	for _, s := range uf.Nodes {
+		s.RootPtr = uf.Root
+	}
 }
 
 func (uf *UFDS) Consistent() bool {
