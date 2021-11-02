@@ -19,10 +19,10 @@ func Tests() {
 	// TestTrees()
 	// TestDP()
 	// TestCollections()
-	// TestAlgo()
+	TestAlgo()
 	// TestOSAlgorithms()
 	// TestClassics()
-	TestGraphs()
+	// TestGraphs()
 }
 
 // tests - the old school way
@@ -65,7 +65,8 @@ func TestAlgo() {
 	// a.TestPower()
 	// a.TestIntDivide()
 	// a.TestNewtonSqrt()
-	a.TestGraphBFS()
+	// a.TestGraphBFS()
+	a.TestSpiralWalk()
 }
 
 func TestClassics() {
