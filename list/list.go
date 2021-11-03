@@ -34,6 +34,8 @@ func DeleteNode(n *Node) {
 	}
 }
 
+/** Link()
+ */
 func Link(first, second *Node) *Node {
 	if second == nil {
 		return first

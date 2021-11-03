@@ -66,7 +66,10 @@ func TestAlgo() {
 	// a.TestIntDivide()
 	// a.TestNewtonSqrt()
 	// a.TestGraphBFS()
-	a.TestSpiralWalk()
+	// a.TestSpiralWalk()
+	// a.TestGetIndex()
+	// a.TestPadString()
+	a.TestBinSort()
 }
 
 func TestClassics() {
