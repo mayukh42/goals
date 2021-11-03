@@ -33,8 +33,9 @@ func TestLists() {
 	// l.SplitMergeIntList()
 	// l.TestReverse()
 	// l.TestRotate()
-	l.TestDListSuffixed()
-	l.TestDListPrefixed()
+	// l.TestDListSuffixed()
+	// l.TestDListPrefixed()
+	l.TestReverseArr()
 }
 
 func TestTrees() {
@@ -69,7 +70,10 @@ func TestAlgo() {
 	// a.TestSpiralWalk()
 	// a.TestGetIndex()
 	// a.TestPadString()
-	a.TestBinSort()
+	// a.TestBinSort()
+	// a.TestDigitsNumber()
+	// a.TestNextHigherInArr()
+	a.TestNextHigherNum()
 }
 
 func TestClassics() {

@@ -80,3 +80,11 @@ func TestDListPrefixed() {
 
 	log.Printf("double linked list prefixed: %v\n", dl)
 }
+
+func TestReverseArr() {
+	xs := u.List{1, 2, 3, 4, 5, 6, 7}
+	log.Printf("revese(%v): %v", xs, ReverseArr(xs))
+
+	ys := u.List{1, 2, 3, 4, 5, 6}
+	log.Printf("revese(%v): %v", ys, ReverseArr(ys))
+}

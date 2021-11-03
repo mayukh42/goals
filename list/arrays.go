@@ -119,3 +119,13 @@ func SwapPrefixSuffix(xs u.List, k uint) u.List {
 
 	return xs
 }
+
+func ReverseArr(xs u.List) u.List {
+	l := len(xs)
+	for i := 0; i < (l >> 1); i++ {
+		tmp := xs[i]
+		xs[i] = xs[l-i-1]
+		xs[l-i-1] = tmp
+	}
+	return xs
+}

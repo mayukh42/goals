@@ -3,6 +3,7 @@ package algo
 import (
 	"log"
 
+	l "github.com/mayukh42/goals/list"
 	u "github.com/mayukh42/goals/utils"
 )
 
@@ -78,7 +79,7 @@ func Power(a, n int) int {
 	p2i := 1
 	for x > 0 {
 		// check if rightmost bit is 1
-		log.Printf("x = %b, x & 1 = %b, 2 ** %d = %d", x, x&1, i, p2i)
+		// log.Printf("x = %b, x & 1 = %b, 2 ** %d = %d", x, x&1, i, p2i)
 		if x&1 == 1 {
 			p := power2(a, p2i)
 			// log.Printf("p = %d", p)
@@ -151,4 +152,96 @@ func NewtonSqrt(n int) int {
 		return b
 	}
 	return a
+}
+
+/** a little more complicated than needs to be
+ * but uses collection reverse
+ */
+func Digits(n int) []byte {
+	ds := make(u.List, 0)
+	for n > 0 {
+		ds = append(ds, byte(n%10))
+		n = n / 10
+	}
+	drs := l.ReverseArr(ds)
+	// log.Printf("digits of %d reversed: %v", n, drs)
+
+	dgts := make([]byte, len(drs))
+	for i := range drs {
+		d, ok := drs[i].(byte)
+		if ok {
+			dgts[i] = d
+		}
+	}
+	return dgts
+}
+
+func Number(digits []byte) int {
+	n := 0
+	for i := len(digits) - 1; i >= 0; i-- {
+		p := len(digits) - i - 1
+		if digits[i] > 0 {
+			n += Power(10, p) * int(digits[i])
+		}
+
+	}
+	return n
+}
+
+// return index of next higher num than d, in digits array
+func NextHigherInArr(digits []byte, d byte) int {
+	if len(digits) < 1 {
+		return 0
+	}
+	m2 := digits[0]
+	m2i := 0
+	for i := 1; i < len(digits); i++ {
+		if digits[i] > d {
+			if digits[i] < m2 {
+				m2 = digits[i]
+				m2i = i
+			}
+		}
+	}
+
+	return m2i
+}
+
+func NextHigherNum(num int) int {
+	ds := Digits(num)
+	b := -1
+	n := len(ds)
+	// find i at the left boundary of non-increasing sequence from end
+	for i := n - 1; i > 0; i-- {
+		if ds[i-1] < ds[i] {
+			b = i - 1
+			break
+		}
+	}
+
+	// split into 3 areas - [0..b-1], [b], [b+1..n-1]
+	// first := ds[:b]
+	last := ds[b+1:]
+
+	// search for lowest num > ds[b] in [b+1..n-1]
+	m := NextHigherInArr(last, ds[b])
+	// correct pos (+1 for index starting with 0)
+	m += b + 1
+
+	log.Printf("n, b, m: %d, %d, %d", n, b, m)
+	// swap m2i with b
+	tmp := ds[m]
+	ds[m] = ds[b]
+	ds[b] = tmp
+
+	// reverse the part [b+1..n-1], i.e. last
+	// e.g. [0...2][3,4,5,6,7,8,9]: swap equidistant elements from either side
+	for i := b + 1; i < b+((n-b)>>1); i++ {
+		tmp := ds[i]
+		ds[i] = ds[n-(i-b)]
+		ds[n-(i-b)] = tmp
+	}
+
+	// construct digits
+	return Number(ds)
 }
