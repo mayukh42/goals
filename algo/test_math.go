@@ -1,6 +1,8 @@
 package algo
 
-import "log"
+import (
+	"log"
+)
 
 func TestDigitsNumber() {
 	xs := []int{1, 231, 4567, 895643, 10101, 123542}
@@ -28,5 +30,26 @@ func TestNextHigherNum() {
 	for _, x := range xs {
 		n := NextHigherNum(x)
 		log.Printf("next-higher(%d): %d", x, n)
+	}
+}
+
+func TestSquarePro() {
+	n := 10
+	sqrs := SquarePro(n)
+	log.Printf("squares[0..%d] = %v", n, sqrs)
+}
+
+func TestGCD() {
+	xys := [][2]int{
+		{18, 12},
+		{27, 24},
+		{30, 31},
+		{405, 360},
+		{1024, 64},
+		{198, 1331},
+	}
+	for _, xy := range xys {
+		a, b := xy[0], xy[1]
+		log.Printf("gcd(%d, %d) = %d", a, b, GCD(a, b))
 	}
 }

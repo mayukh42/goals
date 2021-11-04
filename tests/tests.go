@@ -18,8 +18,8 @@ func Tests() {
 	// TestLists()
 	// TestTrees()
 	// TestDP()
-	// TestCollections()
-	TestAlgo()
+	TestCollections()
+	// TestAlgo()
 	// TestOSAlgorithms()
 	// TestClassics()
 	// TestGraphs()
@@ -56,7 +56,8 @@ func TestCollections() {
 	// c.EnqueueTest()
 	// c.DequeueTest()
 	// c.PushTest()
-	c.PopTest()
+	// c.PopTest()
+	c.FSQTest()
 }
 
 func TestAlgo() {
@@ -73,7 +74,9 @@ func TestAlgo() {
 	// a.TestBinSort()
 	// a.TestDigitsNumber()
 	// a.TestNextHigherInArr()
-	a.TestNextHigherNum()
+	// a.TestNextHigherNum()
+	// a.TestSquarePro()
+	a.TestGCD()
 }
 
 func TestClassics() {

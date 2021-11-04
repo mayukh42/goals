@@ -245,3 +245,38 @@ func NextHigherNum(num int) int {
 	// construct digits
 	return Number(ds)
 }
+
+// O(n) for n squares!
+func SquarePro(n int) []int {
+	sqrs := make([]int, n+1)
+	k, k2 := 0, 0
+	// invariant
+	sqrs[k] = k2
+
+	for k < n {
+		k++
+		/** once k = k+1, k2 = (k-1)^2
+		 * 	(since k2 still has (k-1)^2 stored) = k^2 -2k + 1
+		 * 	so we add 2k - 1 to k2, so that it becomes k^2 which we want
+		 */
+		k2 = k2 + k + k - 1
+		sqrs[k] = k2
+	}
+	return sqrs
+}
+
+func GCD(a, b int) int {
+	// assume a > b
+	if b == 0 || a == b {
+		return a
+	}
+	if b == 1 {
+		return b
+	}
+
+	if a > b {
+		return GCD(b, a-b)
+	} else {
+		return GCD(a, b-a)
+	}
+}
