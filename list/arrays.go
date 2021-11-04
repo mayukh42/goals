@@ -129,3 +129,34 @@ func ReverseArr(xs u.List) u.List {
 	}
 	return xs
 }
+
+/** poc, so using uint8
+ */
+func CountingSort(xs []uint8) []uint8 {
+	min, max := uint8(255), uint8(0)
+	for _, x := range xs {
+		if x <= min {
+			min = x
+		}
+		if x > max {
+			max = x
+		}
+	}
+
+	bins := make([]uint8, max-min+1)
+	for _, x := range xs {
+		i := x - min
+		bins[i]++
+	}
+
+	cs := make([]uint8, 0)
+	j := min
+	for _, n := range bins {
+		for k := n; k > 0; k-- {
+			cs = append(cs, j)
+		}
+		j++
+	}
+
+	return cs
+}

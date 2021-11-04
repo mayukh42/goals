@@ -280,3 +280,35 @@ func GCD(a, b int) int {
 		return GCD(a, b-a)
 	}
 }
+
+/** [0..n^2-1]
+ * using counting sort
+ */
+func RadixSort(xs []uint8, n int) []uint8 {
+	// radix sort will have fixed bin size
+	// radix
+	var cs []uint8
+	r := 0
+	bins := make([][]uint8, 10)
+	for _, x := range xs {
+		// extract dth digit from right
+		ds := Digits(int(x))
+
+		d := 0
+		if len(ds) >= n {
+			d = int(ds[r])
+		}
+		// log.Printf("digits(%d): %v, ds(%d): %d", x, ds, r, d)
+		if bins[d] == nil {
+			bins[d] = []uint8{x}
+		} else {
+			bins[d] = append(bins[d], x)
+		}
+	}
+	// unpack
+	for _, ns := range bins {
+		ss := l.CountingSort(ns)
+		cs = append(cs, ss...)
+	}
+	return cs
+}

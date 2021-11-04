@@ -88,3 +88,9 @@ func TestReverseArr() {
 	ys := u.List{1, 2, 3, 4, 5, 6}
 	log.Printf("revese(%v): %v", ys, ReverseArr(ys))
 }
+
+func TestCountingSort() {
+	xs := []uint8{64, 83, 7, 32, 32, 41, 7, 32, 89, 121, 8, 222, 251, 161, 7, 171, 8, 161, 41, 251, 161}
+	ys := CountingSort(xs)
+	log.Printf("c-sort(%d): \n\t %v", xs, ys)
+}

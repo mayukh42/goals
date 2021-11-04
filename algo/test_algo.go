@@ -45,3 +45,9 @@ func TestNewtonSqrt() {
 		log.Printf("int sqrt(%d) = %d", i, s)
 	}
 }
+
+func TestRadixSort() {
+	xs := []uint8{97, 87, 17, 43, 45, 8, 7, 91, 63, 72, 16, 79}
+	cs := RadixSort(xs, 2)
+	log.Printf("radix(%v): \n\t %v", xs, cs)
+}
