@@ -7,7 +7,6 @@ import (
 	c "github.com/mayukh42/goals/collections"
 	"github.com/mayukh42/goals/dp"
 	g "github.com/mayukh42/goals/graphs"
-	l "github.com/mayukh42/goals/list"
 	o "github.com/mayukh42/goals/osal"
 	t "github.com/mayukh42/goals/tree"
 )
@@ -36,7 +35,6 @@ func TestLists() {
 	// l.TestDListSuffixed()
 	// l.TestDListPrefixed()
 	// l.TestReverseArr()
-	l.TestCountingSort()
 }
 
 func TestTrees() {
@@ -78,7 +76,10 @@ func TestAlgo() {
 	// a.TestNextHigherNum()
 	// a.TestSquarePro()
 	// a.TestGCD()
-	a.TestRadixSort()
+	// a.TestCountingSort()
+	// a.TestRadixSort()
+	// a.TestPartition()
+	a.TestQuicksort()
 }
 
 func TestClassics() {
