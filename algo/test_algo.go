@@ -6,18 +6,18 @@ import (
 	"github.com/mayukh42/goals/utils"
 )
 
-func TestInequality() {
+func testInequality() {
 	res := PointsInCircle(27)
 	log.Printf("res: %v", res)
 }
 
-func TestPower() {
+func testPower() {
 	a, b := 3, 10
 	res := Power(a, b)
 	log.Printf("%d ** %d = %d", a, b, res)
 }
 
-func TestIntDivide() {
+func testIntDivide() {
 	inputs := []utils.Tuple{
 		*utils.NewTuple(24, 3),
 		*utils.NewTuple(25, 3),
@@ -38,7 +38,7 @@ func TestIntDivide() {
 	}
 }
 
-func TestNewtonSqrt() {
+func testNewtonSqrt() {
 	inputs := []int{4, 7, 49, 101, 144, 161, 299, 1024, 2047, 2147483648}
 	for _, i := range inputs {
 		s := NewtonSqrt(i)

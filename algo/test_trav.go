@@ -8,7 +8,7 @@ import (
 	u "github.com/mayukh42/goals/utils"
 )
 
-func TestTreeBFS() {
+func testTreeBFS() {
 	xs := u.List{1, 2, 3, 4, 5, 6, 7}
 	tr := t.CreateFromArray(xs)
 
@@ -20,7 +20,7 @@ func TestTreeBFS() {
 	fmt.Printf("level order: %v\n", acc)
 }
 
-func TestTreeDFS() {
+func testTreeDFS() {
 	xs := u.List{1, 2, 3, 4, 5, 6, 7}
 	tr := t.CreateFromArray(xs)
 
@@ -32,7 +32,7 @@ func TestTreeDFS() {
 	fmt.Printf("depth order: %v\n", acc)
 }
 
-func TestGraphBFS() {
+func testGraphBFS() {
 	gr := g.CreateGraphAL()
 	l := BFSGraph(gr.Src)
 

@@ -4,7 +4,7 @@ import (
 	"log"
 )
 
-func TestDigitsNumber() {
+func testDigitsNumber() {
 	xs := []int{1, 231, 4567, 895643, 10101, 123542}
 	for _, x := range xs {
 		ys := Digits(x)
@@ -15,7 +15,7 @@ func TestDigitsNumber() {
 	}
 }
 
-func TestNextHigherInArr() {
+func testNextHigherInArr() {
 	xs := []int{1}
 	for _, x := range xs {
 		ys := Digits(x)
@@ -25,7 +25,7 @@ func TestNextHigherInArr() {
 	}
 }
 
-func TestNextHigherNum() {
+func testNextHigherNum() {
 	xs := []int{123542}
 	for _, x := range xs {
 		n := NextHigherNum(x)
@@ -33,13 +33,13 @@ func TestNextHigherNum() {
 	}
 }
 
-func TestSquarePro() {
+func testSquarePro() {
 	n := 10
 	sqrs := SquarePro(n)
 	log.Printf("squares[0..%d] = %v", n, sqrs)
 }
 
-func TestGCD() {
+func testGCD() {
 	xys := [][2]int{
 		{18, 12},
 		{27, 24},
