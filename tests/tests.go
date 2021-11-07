@@ -5,7 +5,7 @@ import (
 
 	a "github.com/mayukh42/goals/algo"
 	c "github.com/mayukh42/goals/collections"
-	"github.com/mayukh42/goals/dp"
+	d "github.com/mayukh42/goals/dp"
 	g "github.com/mayukh42/goals/graphs"
 	o "github.com/mayukh42/goals/osal"
 	t "github.com/mayukh42/goals/tree"
@@ -16,9 +16,9 @@ func Tests() {
 
 	// TestLists()
 	// TestTrees()
-	// TestDP()
+	TestDP()
 	// TestCollections()
-	a.TestAlgo()
+	// TestAlgo()
 	// TestOSAlgorithms()
 	// TestClassics()
 	// TestGraphs()
@@ -46,9 +46,11 @@ func TestTrees() {
 }
 
 func TestDP() {
-	// dp.TestLevenshtein()
-	// dp.TestLCSeq()
-	dp.TestMaximalSum()
+	d.TestDP()
+}
+
+func TestAlgo() {
+	a.TestAlgo()
 }
 
 func TestCollections() {

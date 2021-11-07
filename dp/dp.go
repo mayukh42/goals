@@ -104,7 +104,7 @@ func LCSeq(s1, s2 string) string {
  *   0, 1, 0, 4, 3, 5, 6, 1, 5 - maxendshere
  *   0, 1, 1, 4, 4, 5, 6, 6, 6 - maxsofar
  * 		monotonically increasing fn
- * 		to get range, fintd index where max val first seen (== end),
+ * 		to get range, find index where max val first seen (== end),
  * 		compute sum by backtracking to arrive at start
  *
  * [1, 2, 3, -2, 9, -1]
@@ -124,7 +124,8 @@ func MaximalSum(xs []int) int {
 
 	/** invariant: mat[i] = maximal sum (w/ indices for range) up to i
 	 * mat[i].Value = maxsofar
-	 * mat[i].Indices = {start, end}
+	 * mat[i].Indices = {end}
+	 * to find start index, backtrack from end to where sum falls below 0
 	 */
 	maxendshere := 0
 	for i, x := range xs {
@@ -135,22 +136,27 @@ func MaximalSum(xs []int) int {
 			maxendshere += x
 		} else {
 			maxendshere = 0
-			// potential start index
+			/** potential start index;
+			 * since empty arr has sum 0,
+			 * we restart when maxendshere = 0 (1)
+			 */
 		}
 
 		// index check
 		if i == 0 {
 			mat[i].Value = maxendshere
-			// add index only if sum exceeds that of an empty array
-			if maxendshere > 0 {
-				mat[i].Indices = []int{i}
-			}
+			// (1) add index only if sum exceeds that of an empty array?
+			// if maxendshere > 0 {
+			// 	mat[i].Indices = []int{i}
+			// }
+			mat[i].Indices = []int{i}
 		} else {
 			if maxendshere > mat[i-1].Value {
 				mat[i].Value = maxendshere
 				// maxsofar changed, so record this index too
 				mat[i].Indices = []int{i}
 			} else {
+				// continue with old values
 				mat[i].Value = mat[i-1].Value
 				mat[i].Indices = mat[i-1].Indices
 			}
@@ -160,6 +166,9 @@ func MaximalSum(xs []int) int {
 	// backtrack to find range
 	sum := mat[l-1].Value
 	j := mat[l-1].Indices[0] + 1
+	/** i starts at mat[l-1].Indices[0] and goes backwards
+	 * until sum falls below 0
+	 */
 	i := j - 1
 	for sum > 0 {
 		sum -= xs[i]
