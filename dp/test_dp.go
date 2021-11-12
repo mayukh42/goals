@@ -29,10 +29,16 @@ func testMaximalSum() {
 	}
 }
 
+func testClosestP() {
+	str := "googlee"
+	ClosestPalindrome(str)
+}
+
 func TestDP() {
 	// testLevenshtein()
 	// testLCSeq()
-	testMaximalSum()
+	// testMaximalSum()
+	testClosestP()
 }
 
 func TestDPAll() {

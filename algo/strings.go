@@ -3,6 +3,8 @@ package algo
 import (
 	"log"
 	"strings"
+
+	"github.com/mayukh42/goals/utils"
 )
 
 const (
@@ -117,4 +119,89 @@ func sumChars(xs []string) int {
 		n += len(x)
 	}
 	return n
+}
+
+type Suffix string
+
+func NewSuffix(s string) *Suffix {
+	sf := Suffix(s)
+	return &sf
+}
+
+func (s *Suffix) String() string {
+	return string(*s)
+}
+
+type SuffixArray struct {
+	arr  []Suffix
+	size int
+}
+
+func NewSuffixArray(s string) *SuffixArray {
+	n := len(s)
+	sa := &SuffixArray{
+		arr:  make([]Suffix, n),
+		size: n,
+	}
+
+	for i := range s {
+		sa.arr[i] = *NewSuffix(s[i:])
+	}
+
+	return sa
+}
+
+func (sa *SuffixArray) String() string {
+	var sb strings.Builder
+	sb.WriteString("[ \n\t")
+	for i, a := range sa.arr {
+		sb.WriteString(a.String())
+		if i == sa.size-1 {
+			sb.WriteString("\n]")
+		}
+		sb.WriteString("\n\t")
+	}
+	// sb.WriteString("\n]")
+	return sb.String()
+}
+
+// TODO: use u.List instead of []Suffix
+func (sa *SuffixArray) ToList() utils.List {
+	l := make(utils.List, sa.size)
+	for i := range sa.arr {
+		l[i] = sa.arr[i]
+	}
+	return l
+}
+
+func (s Suffix) ComLen(t Suffix) int {
+	p, q := s, t
+	if len(t) < len(s) {
+		p = t
+		q = s
+	}
+
+	i := 0
+	for i < len(p) {
+		if p[i] != q[i] {
+			break
+		}
+		i++
+	}
+
+	return i
+}
+
+func CompareSuffix(a, b utils.Any) int {
+	var (
+		x, y     Suffix
+		xok, yok bool
+	)
+
+	x, xok = a.(Suffix)
+	y, yok = b.(Suffix)
+	if xok && yok {
+		return strings.Compare(x.String(), y.String())
+	}
+	return -2
 }

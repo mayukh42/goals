@@ -22,3 +22,11 @@ func testBinSort() {
 	ys := FauxLinearSort(xs)
 	log.Printf("binsorted: \n\t %v", ys)
 }
+
+func testSuffixArray() {
+	ss := []string{"banana"}
+	for _, s := range ss {
+		sa := NewSuffixArray(s)
+		log.Printf("suffix_array(%s): %s", s, sa)
+	}
+}

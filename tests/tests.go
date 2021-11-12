@@ -7,6 +7,7 @@ import (
 	c "github.com/mayukh42/goals/collections"
 	d "github.com/mayukh42/goals/dp"
 	g "github.com/mayukh42/goals/graphs"
+	"github.com/mayukh42/goals/lang"
 	o "github.com/mayukh42/goals/osal"
 	t "github.com/mayukh42/goals/tree"
 )
@@ -16,12 +17,13 @@ func Tests() {
 
 	// TestLists()
 	// TestTrees()
-	TestDP()
+	// TestDP()
 	// TestCollections()
-	// TestAlgo()
+	TestAlgo()
 	// TestOSAlgorithms()
 	// TestClassics()
 	// TestGraphs()
+	// TestLanguage()
 }
 
 // tests - the old school way
@@ -51,6 +53,10 @@ func TestDP() {
 
 func TestAlgo() {
 	a.TestAlgo()
+}
+
+func TestLanguage() {
+	lang.TestLanguage()
 }
 
 func TestCollections() {

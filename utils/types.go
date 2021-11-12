@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Any interface{}
@@ -29,25 +30,40 @@ type BinaryInt func(a, b Any) int
 
 func CompareInt(a, b Any) int {
 	var (
-		ai, bi int
-		ok     bool
+		x, y int
+		ok   bool
 	)
-	if ai, ok = a.(int); !ok {
+	if x, ok = a.(int); !ok {
 		panic("unknown type for arg 0")
 	}
-	if bi, ok = b.(int); !ok {
+	if y, ok = b.(int); !ok {
 		panic("unknown type for arg 1")
 	}
 
 	// log.Printf("a, b = %d, %d", ai, bi)
 
-	if ai < bi {
+	if x < y {
 		return -1
-	} else if ai > bi {
+	} else if x > y {
 		return 1
 	}
 
 	return 0
+}
+
+func CompareStr(a, b Any) int {
+	var (
+		x, y string
+		ok   bool
+	)
+	if x, ok = a.(string); !ok {
+		panic("unknown type for arg 0")
+	}
+	if y, ok = b.(string); !ok {
+		panic("unknown type for arg 1")
+	}
+
+	return strings.Compare(x, y)
 }
 
 func AnyToString(a Any) string {
