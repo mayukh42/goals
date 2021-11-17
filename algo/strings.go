@@ -1,6 +1,7 @@
 package algo
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
@@ -205,3 +206,57 @@ func CompareSuffix(a, b utils.Any) int {
 	}
 	return -2
 }
+
+/** Permutations()
+ * return n! permutations of a string of n chars
+ */
+func Permutations(s string) []string {
+	pmts := []string{}
+	if len(s) <= 1 {
+		pmts = append(pmts, s)
+		return pmts
+	}
+
+	//
+	for i := range s {
+		prfx := s[i]
+		sfxs := Permutations(fmt.Sprintf("%s%s", s[:i], s[i+1:]))
+		for _, sfx := range sfxs {
+			pmts = append(pmts, fmt.Sprintf("%c%s", prfx, sfx))
+		}
+	}
+
+	return pmts
+}
+
+func Combinations(s string) []string {
+	cmbs := []string{""}
+	if len(s) <= 0 {
+		return cmbs
+	}
+
+	return Subsets(s, cmbs)
+}
+
+// return all subsets of s
+func Subsets(s string, acc []string) []string {
+	l := len(s)
+	for i := 0; i < l; i++ {
+		curr := fmt.Sprintf("%c", s[i])
+		// incrementally create new subsets with the additional char
+		us := unionSingle(acc, curr)
+		acc = append(acc, us...)
+	}
+
+	return acc
+}
+
+func unionSingle(ss []string, s string) []string {
+	ts := make([]string, len(ss))
+	for i := range ss {
+		ts[i] = fmt.Sprintf("%s%s", ss[i], s)
+	}
+	return ts
+}
+
+// TODO: Subsets of length n

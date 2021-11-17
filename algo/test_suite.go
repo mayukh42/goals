@@ -29,7 +29,10 @@ func TestAlgo() {
 	// testPartitionStr()
 	// testQuicksortStr()
 	// testCompareStr()
-	testLRSeq()
+	// testLRSeq()
+	// testPermutations()
+	// testSubsets()
+	testCombinations()
 }
 
 func AllTests() {
@@ -62,4 +65,7 @@ func AllTests() {
 	testQuicksortStr()
 	testCompareStr()
 	testLRSeq()
+	testPermutations()
+	testSubsets()
+	testCombinations()
 }

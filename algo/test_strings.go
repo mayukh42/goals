@@ -30,3 +30,31 @@ func testSuffixArray() {
 		log.Printf("suffix_array(%s): %s", s, sa)
 	}
 }
+
+/**
+ * TODO: test with set
+ */
+func testPermutations() {
+	ss := []string{"aeiou"}
+	for _, s := range ss {
+		ps := Permutations(s)
+		log.Printf("permutations(%s): \n\t %v, \n\t size: %d", s, ps, len(ps))
+	}
+}
+
+func testSubsets() {
+	ss := []string{"aeiou"}
+	for _, s := range ss {
+		ps := Subsets(s, []string{""})
+		log.Printf("subsets(%s): \n\t %v, \n\t size: %d",
+			s, ps, len(ps))
+	}
+}
+
+func testCombinations() {
+	ss := []string{"aeiou"}
+	for _, s := range ss {
+		ps := Combinations(s)
+		log.Printf("combinations(%s): \n\t %v, \n\t size: %d", s, ps, len(ps))
+	}
+}
