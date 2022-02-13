@@ -1,6 +1,9 @@
 package dp
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 func testLevenshtein() {
 	w1 := "flaw"
@@ -34,15 +37,26 @@ func testClosestP() {
 	ClosestPalindrome(str)
 }
 
+func testIsPalindromeCandidate() {
+	ss := []string{"aeiou", "googlee", "goog"}
+	for _, s := range ss {
+		pc := IsPalindromeCandidate(s)
+		log.Printf("can %s be palindrome? %v", s, pc)
+	}
+}
+
 func TestDP() {
 	// testLevenshtein()
 	// testLCSeq()
 	// testMaximalSum()
-	testClosestP()
+	// testClosestP()
+	testIsPalindromeCandidate()
 }
 
 func TestDPAll() {
 	testLevenshtein()
 	testLCSeq()
 	testMaximalSum()
+	testClosestP()
+	testIsPalindromeCandidate()
 }

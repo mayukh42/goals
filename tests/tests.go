@@ -17,9 +17,9 @@ func Tests() {
 
 	// TestLists()
 	// TestTrees()
-	// TestDP()
+	TestDP()
 	// TestCollections()
-	TestAlgo()
+	// TestAlgo()
 	// TestOSAlgorithms()
 	// TestClassics()
 	// TestGraphs()

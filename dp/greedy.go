@@ -11,15 +11,7 @@ func ClosestPalindrome(str string) string {
 	evenMap := make(map[byte]utils.Tuple)
 	oddMap := make(map[byte]utils.Tuple)
 
-	fMap := make(map[byte]int)
-	for _, r := range str {
-		b := byte(r)
-		if n, ok := fMap[b]; ok {
-			fMap[b] = n + 1
-		} else {
-			fMap[b] = 1
-		}
-	}
+	fMap := CharFreq(str)
 
 	l := len(str)
 	// center to end
@@ -107,4 +99,36 @@ func ClosestPalindrome(str string) string {
 	log.Printf("odds: %v", odds)
 
 	return str
+}
+
+func CharFreq(s string) map[byte]int {
+	fMap := make(map[byte]int)
+	for _, r := range s {
+		b := byte(r)
+		if n, ok := fMap[b]; ok {
+			fMap[b] = n + 1
+		} else {
+			fMap[b] = 1
+		}
+	}
+	return fMap
+}
+
+func IsPalindromeCandidate(s string) bool {
+	// a string can be palindrome in some permutation iff it has atmost 1 char occurring odd times and every other char even times
+	fm := CharFreq(s)
+	l, o, e := 0, 0, 0
+	for _, v := range fm {
+		l += v
+		if (v>>1)<<1 == v {
+			e += v
+		} else {
+			o += v
+		}
+	}
+
+	if l == len(s) && o+e == l {
+		return o <= 1
+	}
+	return false
 }
